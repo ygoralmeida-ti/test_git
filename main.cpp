@@ -10,11 +10,12 @@ using std::atoi;
 */
 int main(int argc, char *argv[]) {
 
-	int valor = atoi(argv[1]);//armezana valor inteiro passado pelo usuario em linha de comando
+	int valor = atoi(argv[1]);//armazena valor inteiro passado pelo usuario em linha de comando
+	int valorInicial = valor; //armazena valor para salvar seu valor original
 	int resultadoFatorial = fatorial(&valor);
 	int check = resultadoFatorial/2;
 	int resultadoPrimo = primo(&resultadoFatorial, &check);
-	mostra(&resultadoPrimo);
+	mostra(&valorInicial, &resultadoPrimo);
 
 	return 0;
 }
