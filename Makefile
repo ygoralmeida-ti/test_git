@@ -1,22 +1,32 @@
 #Makefile for "test" C++ application
 #Created by Ygor Almeida 03/07/2017
 
-PROG = test
+PROG = test1
+
+SRC = src
+INC = include
+BIN = bin
+BUILD = build
+
+SOURCE = $(wildcard $(SRC)/*.cpp)
+OBJECT = $(patsubst %,$(BUILD)/%, $(notdir $(SOURCE:.cpp=.o)))
+
 CC = g++
-CPPFLAGS = -Wall -pedantic -ansi
-OBJS = main.o calcula.o mostra.o
 
-$(PROG):$(OBJS)
-	$(CC) -o $(PROG) $(OBJS)
+CPPFLAGS = -Wall -pedantic -ansi -I$(INC)
 
-main.o:
-	$(CC) $(CPPFLAGS) -c main.cpp
+$(BIN)/$(PROG) : $(OBJECT)
+	$(CC) -o $@ $^
 
-cacula.o:calcula.h
-	$(CC) $(CPPFLAGS) -c calcula.cpp
+$(BUILD)/%.o : $(SRC)/%.cpp
+	$(CC) $(CPPFLAGS) -c $< -o $@
 
-mostra.o:mostra.h
-	$(CC) $(CPPFLAGS) -c mostra.cpp
+#.PHONY :
 
-clean:
-	rm -f core $(PROG) $(OBJS)
+#run : $(BIN)/$(PROG)
+#	$(BIN)/$(PROG)
+
+clean :
+	rm -f $(OBJECT) $(BIN)/$(PROG)
+
+
